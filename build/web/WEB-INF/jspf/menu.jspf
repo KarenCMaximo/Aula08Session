@@ -1,0 +1,32 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<h1>SessionWebApp</h1>
+
+<%
+    if(request.getParameter("session.login")!=null){
+        session.setAttribute("session.username", request.getParameter("session.username"));
+        response.sendRedirect(request.getRequestURI());
+    }else if(request.getParameter("session.logout")!=null){
+        session.removeAttribute("session.username");
+        response.sendRedirect(request.getRequestURI());
+    }
+%>
+
+<%if(session.getAttribute("session.username")!=null){%>
+    <form>
+        Bem vindo, <%= session.getAttribute("session.username") %>
+        <input type="submit" name="session.logout" value="Sair"/> |
+        <a href="index.jsp">Index</a> |
+        <a href="page1.jsp">Página 1</a>
+        <a href="application.jsp">Application</a>
+        <a href="session.jsp">Session</a>
+        <a href="request.jsp">Request</a>
+    </form>
+<%}else{%>
+    <form>
+        Username: <input type="text" name="session.username"/>
+        <input type="submit" name="session.login" value="Entrar"/>
+    </form>
+<%}%>
+
+<hr/>
